@@ -1,11 +1,13 @@
 import { useTransition } from "react";
-import { users_table } from "../config/db.js";
 import { Hash } from "../utils/hash.js";
-
+import { dbRun, dbquery } from "../config/database.js";
 
 
 export async function GetAll() {
-    return await users_table;
+    // return await users_table;
+
+    return await dbquery("SELECT * FROM users");
+
 }
 
 export async function GetOne(id) {
@@ -22,21 +24,12 @@ export async function CreateUser(user) {
 
     userWithId.password = await Hash(userWithId.password);
 
-    users_table.push(userWithId);
+    const { id, name, password } = userWithId;
 
-    return userWithId;
+    const query = `INSERT INTO users (id, name, password) VALUES (?, ?, ?)`;
+    return await dbquery(query, [id, name, password]);
 
-}
-
-export async function DeleteUser(id) {
-
-    const userIndex = await users_table.findIndex(u => u.id == id);
-
-    if(userIndex >= 1) throw new Error("User not found");
-
-    users_table.splice(userIndex, 1);
-
-    return { "message":"Deleted user successfully." };
+    // return userWithId;
 
 }
 
