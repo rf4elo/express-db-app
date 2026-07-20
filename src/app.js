@@ -20,7 +20,7 @@ app.use(e.urlencoded({ extended: true }));
 app.use(e.json());
 
 
-app.use("/users", usersRoutes);
+app.use("/api", usersRoutes);
 
 app.get("/", async (req, res) => {
     res.status(200).json({ "message":"Hello, world!", "routes":[ "/users" ] });

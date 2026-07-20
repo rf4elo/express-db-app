@@ -4,11 +4,11 @@ import * as UsersController from "../controller/usersController.js";
 const usersRoutes = Router();
 
 
-usersRoutes.get("/", UsersController.GetAll );
-usersRoutes.get("/:id", UsersController.GetOne );
-usersRoutes.post("/", UsersController.CreateUser );
-usersRoutes.delete("/:id", UsersController.DeleteUser );
-usersRoutes.put("/:id", UsersController.UpdateUser );
+usersRoutes.get("/users", UsersController.GetAll );
+usersRoutes.get("/users/:id", UsersController.GetOne );
+usersRoutes.post("/users", UsersController.CreateUser );
+usersRoutes.delete("/users/:id", UsersController.DeleteUser );
+usersRoutes.put("/users/:id", UsersController.UpdateUser );
 
 
 export default usersRoutes;
