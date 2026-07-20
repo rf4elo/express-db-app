@@ -1,5 +1,7 @@
 import { useTransition } from "react";
 import { users_table } from "../config/db.js";
+import { Hash } from "../utils/hash.js";
+
 
 
 export async function GetAll() {
@@ -17,6 +19,8 @@ export async function CreateUser(user) {
     if(userIndex >= 1) throw new Error("User already exists.");
 
     const userWithId = { "id":users_table.sort((a, b) => b.id - a.id)[0].id+1, ...user };
+
+    userWithId.password = await Hash(userWithId.password);
 
     users_table.push(userWithId);
 

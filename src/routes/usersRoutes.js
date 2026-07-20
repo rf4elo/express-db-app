@@ -8,4 +8,5 @@ usersRoutes.get("/", UsersController.GetAll );
 usersRoutes.post("/", UsersController.CreateUser );
 usersRoutes.delete("/:id", UsersController.DeleteUser );
 
+
 export default usersRoutes;

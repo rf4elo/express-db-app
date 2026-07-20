@@ -20,8 +20,11 @@ app.use(e.urlencoded({ extended: true }));
 app.use(e.json());
 
 
-app.use(usersRoutes);
+app.use("/users", usersRoutes);
 
+app.get("/", async (req, res) => {
+    res.status(200).json({ "message":"Hello, world!", "routes":[ "/users" ] });
+});
 
 export default app;
 
