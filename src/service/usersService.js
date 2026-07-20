@@ -4,32 +4,59 @@ import { dbRun, dbquery } from "../config/database.js";
 
 
 export async function GetAll() {
-    // return await users_table;
-
     return await dbquery("SELECT * FROM users");
-
 }
 
 export async function GetOne(id) {
-    return await users_table.filter(u => u.id == id);
+    return await dbquery("SELECT * FROM users WHERE id = (?)", [id]);
 }
 
 export async function CreateUser(user) {
 
-    const userIndex = await users_table.findIndex(u => u.name == user.name);
+    const { id, name, password } = user;
+    
+    const UserExists = await dbquery("SELECT * FROM users WHERE name = (?)", [name]);
 
-    if(userIndex >= 1) throw new Error("User already exists.");
+    if(UserExists.length > 0) throw new Error("User already exists.");
 
-    const userWithId = { "id":users_table.sort((a, b) => b.id - a.id)[0].id+1, ...user };
-
-    userWithId.password = await Hash(userWithId.password);
-
-    const { id, name, password } = userWithId;
+    const hashPassword = await Hash(password);
 
     const query = `INSERT INTO users (id, name, password) VALUES (?, ?, ?)`;
-    return await dbquery(query, [id, name, password]);
+    
+    return await dbquery(query, [id, name, hashPassword]);
 
-    // return userWithId;
+}
+
+export async function DeleteUser(id) {
+
+    const UserExists = await dbquery("SELECT * FROM users WHERE id = (?)", [id]);
+
+    if(UserExists.length == 0) throw new Error("User not found.");
+
+    const deletedUser = await dbquery("SELECT * FROM users WHERE id = (?)", [id]);
+
+    await dbquery("DELETE FROM users WHERE id = (?)", [id]);
+
+    return deletedUser;
+
+}
+
+export async function UpdateUser(id, updatedUser) {
+    const { name, password } = updatedUser;
+
+    const UserExists = await dbquery("SELECT * FROM users WHERE id = ?", [id]);
+    if(UserExists.length == 0) throw new Error("User not found.");
+
+    if(name) {
+        dbquery("UPDATE users SET name = ? WHERE id = ?", [name, id]);
+    }
+
+    if(password) {
+        const hashPassword = await Hash(password);
+        dbquery("UPDATE users SET password = ? WHERE id = ?", [hashPassword, id]);
+    }
+
+    return await dbquery("SELECT * FROM users WHERE id = ?", [id]);
 
 }
 
