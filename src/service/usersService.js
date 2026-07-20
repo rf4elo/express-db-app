@@ -32,7 +32,7 @@ export async function DeleteUser(id) {
 
     const userIndex = await users_table.findIndex(u => u.id == id);
 
-    if(userIndex = -1) throw new Error("User not found");
+    if(userIndex >= 1) throw new Error("User not found");
 
     users_table.splice(userIndex, 1);
 
