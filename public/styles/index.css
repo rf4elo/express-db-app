@@ -1,0 +1,13 @@
+
+
+body {
+    background-color: #63f;
+    color: #fff;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+    & > h1 {
+        text-align: center;
+        font-size: 2.5rem;
+    };
+}
+

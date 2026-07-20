@@ -2,6 +2,7 @@ import e from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import usersRoutes from "./routes/usersRoutes.js";
+import PublicRoutes from "./routes/publicRoutes.js";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -22,9 +23,7 @@ app.use(e.json());
 
 app.use("/api", usersRoutes);
 
-app.get("/", async (req, res) => {
-    res.status(200).json({ "message":"Hello, world!", "routes":[ "/users" ] });
-});
+app.use(PublicRoutes);
 
 export default app;
 
