@@ -19,4 +19,3 @@ export async function CompareHash(text, hashText) {
     return HashIsCompare;
 
 }
-
