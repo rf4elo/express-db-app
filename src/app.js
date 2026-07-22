@@ -1,10 +1,16 @@
 import 'dotenv/config';
+import cookieParser from "cookie-parser";
+
 import e from "express";
+
 import path from "path";
 import { fileURLToPath } from "url";
+
 import usersRoutes from "./routes/usersRoutes.js";
 import PublicRoutes from "./routes/publicRoutes.js";
-import cookieParser from "cookie-parser";
+
+import { AutorizeApi } from './middleware/autorize-api.js';
+
 
 
 
@@ -25,7 +31,7 @@ app.use(e.json());
 app.use(cookieParser());
 
 
-app.use("/api", usersRoutes);
+app.use("/api", AutorizeApi, usersRoutes);
 
 app.use(PublicRoutes);
 
