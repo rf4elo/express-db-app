@@ -23,8 +23,8 @@ export async function GetOne(req, res) {
 
 export async function CreateUser(req, res) {
     try {
-        const { name, password } = await req.body;
-        const user = await new userDto(name, password);
+        const { name, email, password } = await req.body;
+        const user = await new userDto(name, email, password);
         const createdUser = await userService.CreateUser(user);
         return res.status(201).json({ "message":"User created successfully." });
     } catch (error) {

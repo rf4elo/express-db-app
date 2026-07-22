@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/login-register.css">
+</head>
+<body>
+    <% if(error) { %>
+        <p class="error-msg" ><%= error.status %> | <%= error.message %></p>
+    <% } %>
+    <form method="post">
+        <h1>Register</h1>
+
+        <input type="text" name="name" placeholder="Write your name..." value="<%= lastData.name || '' %>" >
+        <input type="text" name="email" placeholder="Write your email..." value="<%= lastData.email || '' %>" >
+        <input type="password" name="password" placeholder="Write your password..." >
+        <input type="password" name="confirm" placeholder="Confirm your password..." >
+
+        <input type="submit" value="Register">
+
+        <p>Just have an account? <a href="/login" >Login</a>!</p>
+    </form>
+</body>
+</html>

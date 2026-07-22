@@ -14,12 +14,13 @@
     <form method="post" >
         <h1>Login</h1>
 
-        <input type="text" name="login" placeholder="Write your login..." value="<%= lastData.login || '' %>" >
+        <input type="text" name="email" placeholder="Write your email..." value="<%= lastData.email || '' %>" >
 
         <input type="password" name="password" placeholder="Write your password..." value="<%= lastData.password || '' %>" >
 
         <input type="submit" value="Login" >
 
+        <p>Don't have an account? <a href="/register" >Register</a>!</p>
     </form>
 </body>
 </html>

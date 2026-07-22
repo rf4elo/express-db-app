@@ -58,4 +58,17 @@ form {
             };
         };
     }
+
+    & > p {
+        font-size: 0.75rem;
+        font-family: Arial, Helvetica, sans-serif;
+
+        & a {
+            color: #37f;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            };
+        };
+    };
 } 

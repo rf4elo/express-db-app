@@ -13,17 +13,17 @@ export async function GetOne(id) {
 
 export async function CreateUser(user) {
 
-    const { id, name, password } = user;
+    const { id, name, email, password } = user;
     
-    const UserExists = await dbquery("SELECT * FROM users WHERE name = (?)", [name]);
+    const UserExists = await dbquery("SELECT * FROM users WHERE email = (?)", [email]);
 
     if(UserExists.length > 0) throw new Error("User already exists.");
 
     const hashPassword = await Hash(password);
 
-    const query = `INSERT INTO users (id, name, password) VALUES (?, ?, ?)`;
+    const query = `INSERT INTO users (id, name, email, password) VALUES (?, ?, ?, ?)`;
     
-    return await dbquery(query, [id, name, hashPassword]);
+    return await dbquery(query, [id, name, email, hashPassword]);
 
 }
 
@@ -42,13 +42,17 @@ export async function DeleteUser(id) {
 }
 
 export async function UpdateUser(id, updatedUser) {
-    const { name, password } = updatedUser;
+    const { name, email, password } = updatedUser;
 
     const UserExists = await dbquery("SELECT * FROM users WHERE id = ?", [id]);
     if(UserExists.length == 0) throw new Error("User not found.");
 
     if(name) {
         dbquery("UPDATE users SET name = ? WHERE id = ?", [name, id]);
+    }
+
+    if(email) {
+        dbquery("UPDATE users SET email = ? WHERE id = ?", [email, id]);
     }
 
     if(password) {

@@ -12,8 +12,6 @@ import PublicRoutes from "./routes/publicRoutes.js";
 import { AutorizeApi } from './middleware/autorize-api.js';
 
 
-
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
