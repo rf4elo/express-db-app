@@ -49,6 +49,16 @@ PublicRoutes.get("/register", isNotSignIn, async (req, res) => {
 
 PublicRoutes.post("/register", isNotSignIn, register );
 
+// LOGOUT
+PublicRoutes.get("/logout", async (req, res) => {
+    const token = await req.cookies?.authToken;
+
+    if(!token) return res.redirect("/login");
+
+    res.clearCookie('authToken', { path: "/" });
+
+    res.redirect("/login");
+});
 
 
 export default PublicRoutes;
